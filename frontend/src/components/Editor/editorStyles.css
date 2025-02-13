@@ -1,0 +1,285 @@
+  /* Main colors */
+  :root {
+    --primary: #0891B2;
+    --primary-hover: #0e7490;
+    --secondary: #111827;
+    --tertiary: #1f2937;
+    --background: #000000;
+    --text-primary: #F0F2F4;
+    --text-secondary: #B0BAC5;
+    --border-color: #2F4356;
+  }
+
+  /* Basic Elements */
+  .gjs-one-bg {
+    background-color: var(--secondary) !important;
+  }
+
+  .gjs-two-color {
+    color: var(--text-primary) !important;
+  }
+
+  .gjs-three-bg {
+    background-color: var(--tertiary) !important;
+  }
+
+  .gjs-four-color,
+  .gjs-four-color-h:hover {
+    color: var(--primary) !important;
+  }
+
+  /* Modal */
+  .gjs-mdl-container {
+    background-color: rgba(0, 0, 0, 0.7) !important;
+  }
+
+  .gjs-mdl-content {
+    background-color: var(--secondary) !important;
+    border-color: var(--border-color) !important;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3) !important;
+  }
+
+  .gjs-mdl-header {
+    background-color: var(--tertiary) !important;
+    border-bottom: 1px solid var(--border-color) !important;
+  }
+
+  .gjs-mdl-dialog {
+    color: var(--text-primary) !important;
+  }
+
+  /* CodeMirror */
+  .CodeMirror {
+    background-color: var(--tertiary) !important;
+    color: var(--text-primary) !important;
+    border: 1px solid var(--border-color) !important;
+  }
+
+  .CodeMirror-gutters {
+    background-color: var(--secondary) !important;
+    border-right: 1px solid var(--border-color) !important;
+  }
+
+  .CodeMirror-linenumber {
+    color: var(--text-secondary) !important;
+  }
+
+  .CodeMirror-line {
+    color: var(--text-primary) !important;
+  }
+
+  .CodeMirror-cursor {
+    border-left: 1px solid var(--text-primary) !important;
+  }
+
+  /* Tags */
+  .gjs-clm-tags {
+    background-color: var(--secondary) !important;
+    border-color: var(--border-color) !important;
+  }
+
+  .gjs-clm-tag {
+    background-color: var(--tertiary) !important;
+    border: 1px solid var(--border-color) !important;
+    color: var(--text-primary) !important;
+  }
+
+  .gjs-clm-tag-status {
+    background-color: var(--primary) !important;
+    color: white !important;
+  }
+
+  /* Panels and buttons */
+  .gjs-pn-panel {
+    background-color: var(--secondary) !important;
+    color: var(--text-primary) !important;
+  }
+
+  .gjs-pn-buttons {
+    background-color: var(--secondary) !important;
+    border-color: var(--border-color) !important;
+  }
+
+  .gjs-pn-btn {
+    color: var(--text-secondary) !important;
+  }
+
+  .gjs-pn-btn:hover {
+    color: var(--text-primary) !important;
+  }
+
+  .gjs-pn-btn.gjs-pn-active {
+    color: var(--primary) !important;
+    background-color: var(--tertiary) !important;
+  }
+
+  /* Category blocks */
+  .gjs-blocks-c {
+    background-color: var(--secondary) !important;
+    border-color: var(--border-color) !important;
+  }
+
+  .gjs-block {
+    background-color: var(--tertiary) !important;
+    border-color: var(--border-color) !important;
+    color: var(--text-secondary) !important;
+  }
+
+  .gjs-block:hover {
+    color: var(--text-primary) !important;
+    border-color: var(--primary) !important;
+  }
+
+  .gjs-block-category {
+    background-color: var(--secondary) !important;
+    border-color: var(--border-color) !important;
+  }
+
+  .gjs-block-category.gjs-open {
+    border-bottom: 1px solid var(--border-color) !important;
+  }
+
+  .gjs-block-category .gjs-title {
+    background-color: var(--tertiary) !important;
+    color: var(--text-primary) !important;
+    border-bottom: 1px solid var(--border-color) !important;
+  }
+
+  /* Layers */
+  .gjs-layer {
+    background-color: var(--tertiary) !important;
+    border-color: var(--border-color) !important;
+  }
+
+  .gjs-layer.gjs-selected {
+    border-color: var(--primary) !important;
+  }
+
+  .gjs-layer-title {
+    background-color: var(--tertiary) !important;
+    color: var(--text-primary) !important;
+  }
+
+  .gjs-layer-count {
+    background-color: var(--primary) !important;
+  }
+
+  /* Styles */
+  .gjs-sm-sector {
+    background-color: var(--secondary) !important;
+    border-color: var(--border-color) !important;
+  }
+
+  .gjs-sm-property {
+    border-color: var(--border-color) !important;
+  }
+
+  .gjs-sm-label {
+    color: var(--text-secondary) !important;
+  }
+
+  .gjs-sm-field input,
+  .gjs-sm-field select,
+  .gjs-sm-field textarea {
+    background-color: var(--tertiary) !important;
+    border-color: var(--border-color) !important;
+    color: var(--text-primary) !important;
+  }
+
+  .gjs-sm-field input:focus,
+  .gjs-sm-field select:focus,
+  .gjs-sm-field textarea:focus {
+    border-color: var(--primary) !important;
+  }
+
+  /* Input fields */
+  .gjs-field {
+    background-color: var(--tertiary) !important;
+    border-color: var(--border-color) !important;
+    color: var(--text-primary) !important;
+  }
+
+  .gjs-field-arrows {
+    background-color: var(--secondary) !important;
+  }
+
+  .gjs-field-arrow {
+    border-color: var(--text-secondary) transparent transparent transparent !important;
+  }
+
+  .gjs-field-arrow-u {
+    border-color: transparent transparent var(--text-secondary) transparent !important;
+  }
+
+  /* Component selected states */
+  .gjs-selected {
+    outline: 2px solid var(--primary) !important;
+  }
+
+  .gjs-hovered {
+    outline: 1px solid var(--primary) !important;
+  }
+
+  /* Traits */
+  .gjs-trt-trait {
+    background-color: var(--tertiary) !important;
+    border-color: var(--border-color) !important;
+  }
+
+  .gjs-trt-trait .gjs-label {
+    color: var(--text-secondary) !important;
+  }
+
+  .gjs-trt-trait .gjs-field {
+    background-color: var(--tertiary) !important;
+  }
+
+  /* Color picker */
+  .gjs-color-picker {
+    background-color: var(--secondary) !important;
+    border-color: var(--border-color) !important;
+  }
+
+  .gjs-color-picker input {
+    color: var(--text-primary) !important;
+    background-color: var(--tertiary) !important;
+  }
+
+  /* Asset manager */
+  .gjs-am-preview-container {
+    background-color: var(--secondary) !important;
+  }
+
+  .gjs-am-asset {
+    background-color: var(--tertiary) !important;
+    border-color: var(--border-color) !important;
+  }
+
+  .gjs-am-asset.gjs-selected {
+    border-color: var(--primary) !important;
+  }
+
+  /* File uploader */
+  .gjs-am-file-uploader {
+    background-color: var(--tertiary) !important;
+    border-color: var(--border-color) !important;
+  }
+
+  .gjs-am-file-uploader #gjs-am-title {
+    color: var(--text-primary) !important;
+  }
+
+  /* Devices */
+  .gjs-devices-c {
+    background-color: var(--secondary) !important;
+    border-color: var(--border-color) !important;
+  }
+
+  .gjs-device-label {
+    color: var(--text-secondary) !important;
+  }
+
+  .gjs-device-label.gjs-active {
+    color: var(--primary) !important;
+    background-color: var(--tertiary) !important;
+  }

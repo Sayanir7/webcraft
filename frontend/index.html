@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" class="custom-scrollbar">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WebCraft</title>
+    <style>
+      /* Base styles */
+      html {
+        scroll-behavior: smooth;
+        background: #000000;
+      }
+
+      body {
+        margin: 0;
+        padding: 0;
+      }
+
+      /* Scrollbar styles */
+      .custom-scrollbar::-webkit-scrollbar {
+        width: 8px;
+        background-color: transparent;
+      }
+      
+      .custom-scrollbar::-webkit-scrollbar-track {
+        background-color: rgba(17, 24, 39, 0.7);
+      }
+      
+      .custom-scrollbar::-webkit-scrollbar-thumb {
+        background-color: rgba(75, 85, 99, 0.5);
+        border-radius: 4px;
+        transition: background-color 0.2s ease;
+      }
+      
+      .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+        background-color: rgba(107, 114, 128, 0.7);
+      }
+      
+      /* Firefox */
+      .custom-scrollbar {
+        scrollbar-width: thin;
+        scrollbar-color: rgba(75, 85, 99, 0.5) rgba(17, 24, 39, 0.7);
+      }
+
+      /* Hide scrollbar for mobile devices */
+      @media (max-width: 768px) {
+        .custom-scrollbar::-webkit-scrollbar {
+          width: 0;
+          display: none;
+        }
+        
+        .custom-scrollbar {
+          scrollbar-width: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
