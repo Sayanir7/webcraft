@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const useFetchChatById = (chatId, setCodeVersion) => {
+const useFetchChatById = (chatId, dispatch, setCode) => {
   const [chat, setChat] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -15,12 +15,18 @@ const useFetchChatById = (chatId, setCodeVersion) => {
       .then(async (res) => {
         const data = await res.json();
         if (!res.ok) throw new Error(data.message);
+
         setChat(data);
-        setCodeVersion(data.promptsAndResponses.length - 1);
+
+        // Ensure promptsAndResponses exists before using it
+        if (data.promptsAndResponses && data.promptsAndResponses.length > 0) {
+          const lastResponse = data.promptsAndResponses[data.promptsAndResponses.length - 1];
+          dispatch(setCode(lastResponse));
+        }
       })
       .catch((err) => setError(err.message))
       .finally(() => setLoading(false));
-  }, [chatId]);
+  }, [chatId, dispatch, setCode]); // Added missing dependencies
 
   return { chat, setChat, loading, error };
 };

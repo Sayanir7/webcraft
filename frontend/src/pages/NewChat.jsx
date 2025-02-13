@@ -12,7 +12,8 @@ import { useSelector } from "react-redux";
 import { toast } from "sonner";
 import { handleChatCreation } from "../utils/handleChatCreation";
 import useCreateChat from "../hooks/useCreateChat";
-import useAnthropic from "../hooks/useAnthropic";
+// import useAnthropic from "../hooks/useAnthropic";
+import useGemini from "../hooks/useGemini";
 
 const SuggestedPrompt = ({ icon: Icon, title, description, onClick }) => (
   <button
@@ -32,7 +33,7 @@ const NewChat = () => {
   const [file, setFile] = useState(null);
   const { currentUser } = useSelector((state) => state.user);
   const { createChat, loading, setLoading } = useCreateChat();
-  const { generateResponse } = useAnthropic();
+  const { generateResponse } = useGemini();
   const [greeting, setGreeting] = useState("");
 
   useEffect(() => {

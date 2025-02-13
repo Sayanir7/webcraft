@@ -3,18 +3,18 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
-import Anthropic from '@anthropic-ai/sdk';
+// import Anthropic from '@anthropic-ai/sdk';
 import userRoutes from './routes/user.route.js';
 import authRoutes from './routes/auth.route.js';
 import chatRoutes from './routes/chat.route.js';
 
 dotenv.config();
 
-const anthropic = new Anthropic({
-  apiKey: process.env.ANTHROPIC_API_KEY,
-});
+// const anthropic = new Anthropic({
+//   apiKey: process.env.ANTHROPIC_API_KEY,
+// });
 
-console.log("Anthropic API Key:", process.env.ANTHROPIC_API_KEY);
+// console.log("Anthropic API Key:", process.env.ANTHROPIC_API_KEY);
 
 
 mongoose
@@ -43,24 +43,54 @@ app.get('/health', (req, res) => {
 });
 
 // Anthropic endpoint
-app.post('/api/chat/anthropic', async (req, res) => {
+// app.post('/api/chat/anthropic', async (req, res) => {
   
+//   try {
+//     const { prompt } = req.body;
+//     console.log("request received.")
+    
+//     const completion = await anthropic.messages.create({
+//       model: 'claude-3-5-sonnet-20241022',
+//         max_tokens: 8000,
+//       messages: [{ role: "user", content: prompt }]
+//     });
+//     console.log(completion);
+//     res.json({ message: completion.content[0].text });
+//   } catch (error) {
+//     console.log(error);
+//     res.status(500).json({ message: error.message });
+//   }
+// });
+app.post('/api/chat/anthropic', async (req, res) => {
+  const API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent";
+  const API_KEY = process.env.GEMINI_API_KEY;
+
   try {
     const { prompt } = req.body;
-    console.log("request received.")
-    
-    const completion = await anthropic.messages.create({
-      model: 'claude-3-5-sonnet-20241022',
-        max_tokens: 8000,
-      messages: [{ role: "user", content: prompt }]
+    console.log("Request received.");
+
+    const response = await fetch(`${API_URL}?key=${API_KEY}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] } ),
     });
-    console.log(completion);
-    res.json({ message: completion.content[0].text });
+
+    if (response.status === 429) {
+      console.log("limit")
+      return res.status(429).json({ message: "Rate limit exceeded. Try again later." });
+    }
+
+    const data = await response.json();  // Read body only once
+
+    console.log(response);  // Log response details
+    res.json({ message: data?.candidates?.[0]?.content?.parts?.[0]?.text || "No response from AI." });
   } catch (error) {
-    console.log(error);
+    console.error("Error:", error);
     res.status(500).json({ message: error.message });
   }
 });
+
+
 
 // API Routes
 app.use('/api/user', userRoutes);

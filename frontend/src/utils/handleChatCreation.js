@@ -29,8 +29,8 @@ export const handleChatCreation = async ({ prompt, file, generateResponse, creat
 
 
     if (!responseData) return;
-    // const htmlWithImage = await updateHtmlContent(responseData.html);
-    const htmlWithImage = responseData.html;
+    const htmlWithImage = await updateHtmlContent(responseData.html);
+    // const htmlWithImage = responseData.html;
     console.log("responseData", responseData);
 
     const newChat = {

@@ -19,8 +19,8 @@ const useAnthropic = () => {
       });
 
       if (!res.ok) throw new Error("Failed to fetch response from Anthropic");
-
-      const data = await res.json();
+      console.log(res);
+      // const data = await res.json();
       return data.message;
     } catch (err) {
       console.error("Anthropic API Error:", err);

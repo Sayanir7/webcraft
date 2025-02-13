@@ -1,15 +1,21 @@
 import React, { useState, useRef, useEffect } from "react";
 import { PaperAirplaneIcon } from "@heroicons/react/24/solid";
 import useAnthropic from "../hooks/useAnthropic";
+import useGemini from "../hooks/useGemini";
 import useUpdateChat from "../hooks/useUpdateChat";
 import { handleSend } from "../utils/handleSend";
 import { CodeBracketIcon } from "@heroicons/react/24/outline";
+import { setCode } from "../redux/codeDisplaySlice";
+import { useSelector, useDispatch } from "react-redux";
+
 
 const ChatInterface = ({ chat, setChat, isExpanded, setCodeVersion }) => {
   const [prompt, setPrompt] = useState("");
   const messagesEndRef = useRef(null);
-  const { generateResponse, loading } = useAnthropic();
+  const { generateResponse, loading } = useGemini();
   const { updateChat } = useUpdateChat();
+  const dispatch = useDispatch();
+
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -22,6 +28,10 @@ const ChatInterface = ({ chat, setChat, isExpanded, setCodeVersion }) => {
   const handleSendClick = async () => {
     await handleSend({ prompt, chat, setChat, setCodeVersion, updateChat, generateResponse });
     setPrompt("");
+  };
+  const handleCodeDisplay = (code) => {
+    // console.log(code);
+    dispatch(setCode(code));
   };
 
   return (
@@ -42,7 +52,7 @@ const ChatInterface = ({ chat, setChat, isExpanded, setCodeVersion }) => {
             <div className="p-4 rounded-lg bg-gray-800 bg-opacity-50 text-gray-200 shadow-lg relative">
               {entry.response.textOverview}
               <button
-                onClick={() => setCodeVersion(index)}
+                onClick={() => handleCodeDisplay(entry)}
                 className="absolute  bottom-2 right-2  px-1.5 py-0.5  bg-gray-600 bg-opacity-50 text-gray-300 rounded-lg text-sm shadow-lg hover:shadow-xl transition-all transform hover:scale-105"
               >
                 <CodeBracketIcon className="w-5 h-5 " />

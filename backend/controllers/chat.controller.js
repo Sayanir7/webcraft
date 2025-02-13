@@ -14,7 +14,7 @@ export const getAllChats = async (req, res, next) => {
 // Get a single chat (except code) by ID
 export const getChatById = async (req, res, next) => {
   try {
-    const chat = await Chat.findById(req.params.chatId).select("user title context promptsAndResponses.prompt promptsAndResponses.response.textOverview");
+    const chat = await Chat.findById(req.params.chatId).select("user title context promptsAndResponses.prompt promptsAndResponses.response");
 
     if (!chat) return next(errorHandler(404, "Chat not found."));
 

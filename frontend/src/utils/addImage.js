@@ -101,8 +101,8 @@ export function generateRandomNumber(min, max) {
       }
     });
   
-    // console.log(keywordImages);
-    // console.log(htmlContent);
+    console.log(keywordImages);
+    console.log(htmlContent);
   
     return htmlContent;
   }

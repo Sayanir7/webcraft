@@ -1,13 +1,28 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { CodeBracketIcon, EyeIcon, FolderArrowDownIcon, PencilSquareIcon } from "@heroicons/react/24/outline";
 import useFetchCodeByVersion from "../hooks/useFetchCodeByVersion";
 import { downloadCodeFiles } from "../utils/downloadCodeFiles";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const CodeDisplay = ({ chatId, codeVersion, isExpanded }) => {
-  const { code, loading } = useFetchCodeByVersion(chatId, codeVersion);
+  // const { code, loading } = useFetchCodeByVersion(chatId, codeVersion);
+  // const [code, setCode] = useState({ html: "", css: "", script: "" });
   const [selectedTab, setSelectedTab] = useState("preview");
   const [selectedCodeType, setSelectedCodeType] = useState("html");
+  const { codeBody } = useSelector((state) => state.code);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  
+  // useEffect(()=>{
+  //   setLoading(true);
+  //   setError(null);
+  //   console.log(codeBody);
+  //   setCode(codeBody.response);
+  // },[code, codeBody]);
+  
+  let code = codeBody.response;
+  
 
   const handleDownload = () => {
     if (code) {

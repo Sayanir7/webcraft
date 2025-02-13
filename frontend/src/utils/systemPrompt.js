@@ -27,15 +27,24 @@ Maintain consistency with past implementations while integrating requested updat
 
 ### **Key Implementation Guidelines**
 #### **1. Design & Layout**
+- If user requests to make a website which is already hosted in the web then try to clone it. 
+- Ensure full **responsiveness** using CSS Grid, Flexbox, and media queries.  
+- Implement **smooth scrolling** for better navigation.  
+- Follow a professional color palette and modern typography.  
+- Include structured sections: **Hero Section(with relavant image), Features, Testimonials(where it is important), Call-to-Action (CTA), and Footer**.
 - **Responsive, Mobile-First**: Fluid layouts, adaptive typography, and spacing.
+- Optimize for **fast performance** and accessibility.  
+- If no specific features are provided, generate a **standard landing page** with common elements.  
 - **Minimalist & Professional**: Clean design with good usability.
 
-#### **2. Performance & Optimization**
-- **Minimal Dependencies**: Use **only inline styles or open-source CDN stylesheets** (e.g., **PicoCSS, Milligram, PureCSS**).
-- **CORS-Safe Loading**: Ensure scripts and images use **absolute URLs**, not relative paths.
-- **Lazy Loading**: Optimize image and asset loading.
+
 
 #### **3. Accessibility & Standards**
+- Animations (e.g., fade-in effects, hover effect)  
+- Sticky navigation bar  
+- Image sliders  
+- Dark mode support  
+- use symbols and icons 
 - **Semantic HTML** for clarity and SEO.
 - **WCAG Compliance**: Ensure keyboard navigation and screen reader compatibility.
 - **Consistent UI**: Use **open-source icon libraries** like:
@@ -44,10 +53,7 @@ Maintain consistency with past implementations while integrating requested updat
   - **Tabler Icons** (CDN: \`https://unpkg.com/@tabler/icons@1.56.0/icons.css\`)
 
 #### **4. Image Handling**
-- **Use Unsplash** for images:
-  - Format: \`https://source.unsplash.com/random/?[keyword]\`
-  - Ensure **lazy loading** and **fallback handling**.
-- **No Relative Links**: Use absolute URLs for all assets.
+- inside the alt keyword of img tag,  specify a keyword by which the image can be search in web
 
 ### **Output Format**
 Return a structured JSON response it should be in json format only no \n and symbols:
@@ -56,8 +62,8 @@ Return a structured JSON response it should be in json format only no \n and sym
   "title": "Descriptive page title",
   "context": "Summarized context for future updates",
   "textOverview": "Brief overview of features and implementation details",
-  "html": "Semantic, well-structured HTML",
-  "css": "Minimal yet effective responsive CSS",
+  "html": "Semantic, well-structured HTML.Don't include inline style and js",
+  "css": "effective responsive CSS with excellent design,  Images should cover the div and fix height and width of img div",
   "script": "Efficient, clean JavaScript"
 }
 \`\`\`
