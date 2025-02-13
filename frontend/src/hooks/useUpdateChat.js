@@ -1,7 +1,9 @@
+import API_URL from "../endpoint";
+
 const useUpdateChat = () => {
   const updateChat = async (chatId, updatedData, setCodeVersion) => {
     try {
-      const res = await fetch(`/api/chat/${chatId}`, {
+      const res = await fetch(`${API_URL}/api/chat/${chatId}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         credentials: "include",

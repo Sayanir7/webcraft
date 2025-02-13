@@ -2,6 +2,7 @@ import { useSelector } from "react-redux";
 import { useState } from "react";
 import { useDispatch } from 'react-redux';
 import { toast } from "sonner";
+import API_URL from "../endpoint";
 import {
   updateStart,
   updateSuccess,
@@ -27,7 +28,7 @@ const useUpdateUser = () => {
   
       try {
         dispatch(updateStart());
-        const res = await fetch(`/api/user/update/${currentUser._id}`, {
+        const res = await fetch(`${API_URL}/api/user/update/${currentUser._id}`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',

@@ -54,14 +54,14 @@ export function generateRandomNumber(min, max) {
   
   export async function updateHtmlContent(htmlContent) {
 
-    // const accessKey = import.meta.env.ImgAccessKey;
-    // const cx = import.meta.env.ImgCx;
+    const accessKey = import.meta.env.VITE_ImgAccessKey;
+    const cx = import.meta.env.VITE_ImgCx;
 
     // const accessKey = 'AIzaSyCkdl1G-gYQF2z04K2rNhmyrcTvwa1r0KI';
     // const cx = '0088d61d5071241fb';
     
-    const accessKey = 'AIzaSyATeAJwdoWzjG_xXEAojAaTEwTTaFvjyQw';
-    const cx = '4188e9c9cf0654ef6';
+    // const accessKey = 'AIzaSyATeAJwdoWzjG_xXEAojAaTEwTTaFvjyQw';
+    // const cx = '4188e9c9cf0654ef6';
     const keywords = extractAltKeywords(htmlContent);
     const keywordImages = {};
     const index = generateRandomNumber(0, 9);
@@ -101,8 +101,8 @@ export function generateRandomNumber(min, max) {
       }
     });
   
-    console.log(keywordImages);
-    console.log(htmlContent);
+    // console.log(keywordImages);
+    // console.log(htmlContent);
   
     return htmlContent;
   }

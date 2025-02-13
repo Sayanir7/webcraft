@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import API_URL from "../endpoint";
 
 const useFetchChatTitles = () => {
   const [chats, setChats] = useState([]);
@@ -9,7 +10,7 @@ const useFetchChatTitles = () => {
     setLoading(true);
     setError(null);
 
-    fetch("/api/chat", { credentials: "include" })
+    fetch(`${API_URL}/api/chat`, { credentials: "include" })
       .then(async (res) => {
         const data = await res.json();
         if (!res.ok) throw new Error(data.message);

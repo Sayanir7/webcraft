@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { toast } from "sonner";
+import API_URL from "../endpoint";
 
 const useUpdateCodeByVersion = () => {
   const [loading, setLoading] = useState(false);
@@ -11,7 +12,7 @@ const useUpdateCodeByVersion = () => {
     setLoading(true);
     setError(null);
 
-    fetch(`/api/chat/${chatId}/code/${version}`, {
+    fetch(`${API_URL}/api/chat/${chatId}/code/${version}`, {
       method: "PUT",
       credentials: "include",
       headers: { "Content-Type": "application/json" },

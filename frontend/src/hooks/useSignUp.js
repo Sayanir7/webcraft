@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { signUpStart, signUpSuccess, signUpFailure } from '../redux/user/userSlice';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
+import API_URL from '../endpoint';
 
 const useSignUp = () => {
   const dispatch = useDispatch();
@@ -11,7 +12,7 @@ const useSignUp = () => {
   const handleSubmit = async (formData) => {
     dispatch(signUpStart());
     try {
-      const res = await fetch('/api/auth/signup', {
+      const res = await fetch(`${API_URL}/api/auth/signup`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),

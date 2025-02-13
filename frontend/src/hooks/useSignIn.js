@@ -2,6 +2,7 @@ import { useDispatch } from 'react-redux';
 import { signInStart, signInSuccess, signInFailure } from '../redux/user/userSlice';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
+import API_URL from '../endpoint';
 
 const useSignIn = () => {
   const dispatch = useDispatch();
@@ -10,7 +11,7 @@ const useSignIn = () => {
   const handleSubmit = async (formData) => {
     dispatch(signInStart());
     try {
-      const res = await fetch('/api/auth/signin', {
+      const res = await fetch(`${API_URL}/api/auth/signin`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include' ,

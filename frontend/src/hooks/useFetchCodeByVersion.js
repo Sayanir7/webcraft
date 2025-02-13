@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import API_URL from "../endpoint";
 
 const useFetchCodeByVersion = (chatId, version) => {
   const [code, setCode] = useState({ html: "", css: "", script: "" });
@@ -11,7 +12,7 @@ const useFetchCodeByVersion = (chatId, version) => {
     setLoading(true);
     setError(null);
 
-    fetch(`/api/chat/${chatId}/code/${version}`, { credentials: "include" })
+    fetch(`${API_URL}/api/chat/${chatId}/code/${version}`, { credentials: "include" })
       .then(async (res) => {
         const data = await res.json();
         if (!res.ok) throw new Error(data.message);

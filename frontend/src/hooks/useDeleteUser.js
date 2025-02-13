@@ -2,6 +2,7 @@ import { useDispatch } from 'react-redux';
 import { useState } from 'react';
 import { deleteUserStart, deleteUserSuccess, deleteUserFailure } from '../redux/user/userSlice';
 import { toast } from 'sonner';
+import API_URL from '../endpoint';
 
 const useDeleteUser = () => {
   const dispatch = useDispatch();
@@ -11,7 +12,7 @@ const useDeleteUser = () => {
     setShowModal(false);
     try {
       dispatch(deleteUserStart());
-      const res = await fetch(`/api/user/delete/${userId}`, {
+      const res = await fetch(`${API_URL}/api/user/delete/${userId}`, {
         method: 'DELETE',
         credentials: 'include',
       });

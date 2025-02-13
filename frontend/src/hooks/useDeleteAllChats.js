@@ -1,9 +1,10 @@
 import { toast } from "sonner";
+import API_URL from "../endpoint";
 
 const useDeleteAllChats = () => {
   const deleteAllChats = async () => {
     try {
-      const res = await fetch("/api/chat", {
+      const res = await fetch(`${API_URL}/api/chat`, {
         method: "DELETE",
         credentials: "include",
       });

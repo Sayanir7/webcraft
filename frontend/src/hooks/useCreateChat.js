@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
+import API_URL from "../endpoint";
 
 const useCreateChat = () => {
   const [loading, setLoading] = useState(false);
@@ -9,7 +10,7 @@ const useCreateChat = () => {
   const createChat = async (chatData) => {
     setLoading(true);
     try {
-      const res = await fetch("/api/chat", {
+      const res = await fetch(`${API_URL}/api/chat`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",

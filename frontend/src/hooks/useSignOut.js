@@ -1,4 +1,5 @@
 import { useDispatch } from 'react-redux';
+import API_URL from '../endpoint';
 import {
   signoutSuccess,
 } from '../redux/user/userSlice';
@@ -9,7 +10,7 @@ const useSignOut = () => {
 
   const handleSignout = async () => {
     try {
-      const res = await fetch('/api/user/signout', {
+      const res = await fetch(`${API_URL}/api/user/signout`, {
         method: 'POST',
         credentials: 'include',
       });
