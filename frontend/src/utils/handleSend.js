@@ -55,7 +55,7 @@ export const handleSend = async ({
     if (!responseData) {
       throw new Error("Invalid response format");
     }
-    console.log("responseData", responseData);
+    // console.log("responseData", responseData);
 
     // Process HTML with images
     // const htmlWithImage = await updateHtmlContent(responseData.html);
@@ -85,6 +85,8 @@ export const handleSend = async ({
         script: responseData.script || ""
       }
     }, setCodeVersion);
+
+    return responseData;
 
   } catch (error) {
     // Revert optimistic update
