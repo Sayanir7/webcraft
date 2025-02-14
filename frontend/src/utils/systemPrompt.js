@@ -31,7 +31,6 @@ Maintain consistency with past implementations while integrating requested updat
 - Ensure full **responsiveness** using CSS Grid, Flexbox, and media queries.  
 - Implement **smooth scrolling** for better navigation.  
 - Follow a professional color palette and modern typography.  
-- Include structured sections: **Hero Section(with relavant image), Features, Testimonials(where it is important), Call-to-Action (CTA), and Footer**.
 - **Responsive, Mobile-First**: Fluid layouts, adaptive typography, and spacing.
 - Optimize for **fast performance** and accessibility.  
 - If no specific features are provided, generate a **standard landing page** with common elements.  
