@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { toast} from "sonner";
 
 const API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
 const API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent";
@@ -28,7 +29,8 @@ const useGemini = () => {
     } catch (err) {
       console.error("Gemini API Error:", err);
       setError(err.message);
-      return null;
+      toast.error("Server error!!")
+      // return null;
     } finally {
       setLoading(false);
     }

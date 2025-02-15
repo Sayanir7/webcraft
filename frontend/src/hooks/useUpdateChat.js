@@ -16,7 +16,7 @@ const useUpdateChat = () => {
       }
 
       const result = await res.json();
-      setCodeVersion(result.length - 1);
+      
       return result;
       
     } catch (error) {

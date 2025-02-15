@@ -6,7 +6,6 @@ export const handleSend = async ({
   prompt, 
   chat, 
   setChat, 
-  setCodeVersion, 
   updateChat, 
   generateResponse 
 }) => {
@@ -69,7 +68,12 @@ export const handleSend = async ({
         ...(prevChat?.promptsAndResponses || []).slice(0, -1),
         {
           prompt,
-          response: { textOverview: responseData.textOverview || "No overview provided." }
+          response: {
+            textOverview: responseData.textOverview || "No overview provided.",
+            html: htmlWithImage || "",
+            css: responseData.css || "",
+            script: responseData.script || ""
+          }
         }
       ]
     }));
@@ -84,7 +88,7 @@ export const handleSend = async ({
         css: responseData.css || "",
         script: responseData.script || ""
       }
-    }, setCodeVersion);
+    });
 
     return responseData;
 

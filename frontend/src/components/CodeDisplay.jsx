@@ -7,28 +7,28 @@ import { useSelector } from "react-redux";
 
 const CodeDisplay = ({ chatId, codeVersion, isExpanded }) => {
   // const { code, loading } = useFetchCodeByVersion(chatId, codeVersion);
-  // const [code, setCode] = useState({ html: "", css: "", script: "" });
+  const [code, setCode] = useState("");
   const [selectedTab, setSelectedTab] = useState("preview");
   const [selectedCodeType, setSelectedCodeType] = useState("html");
   const { codeBody } = useSelector((state) => state.code);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   
-  // useEffect(()=>{
-  //   setLoading(true);
-  //   setError(null);
-  //   console.log(codeBody);
-  //   setCode(codeBody.response);
-  // },[code, codeBody]);
-  
-  let code = codeBody.response;
+  useEffect(() => {
+    if (codeBody?.response) {
+      // console.log("Updated CodeBody:", codeBody.response);
+      setCode(codeBody.response);
+    }
+  }, [codeBody]);
+  // let code = codeBody?.response;
+  // setCode(codeBody.response);
   
 
-  const handleDownload = () => {
+  function handleDownload() {
     if (code) {
       downloadCodeFiles(code);
     }
-  };
+  }
 
   const ActionButtons = () => (
     <>
@@ -96,7 +96,7 @@ const CodeDisplay = ({ chatId, codeVersion, isExpanded }) => {
             <iframe
               title="Preview"
               className="flex-1 w-full bg-white rounded-lg shadow-lg"
-              srcDoc={`<html><head><style>${code?.css || ''}</style></head><body>${code?.html || ''}<script>${code?.script || ''}</script></body></html>`}
+              srcDoc={`<html><head><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" /><style>${code?.css || ''}</style></head><body>${code?.html || ''}<script>${code?.script || ''}</script></body></html>`}
               sandbox="allow-scripts"
             />
           </div>
@@ -156,7 +156,7 @@ const CodeDisplay = ({ chatId, codeVersion, isExpanded }) => {
                 <iframe
                   title="Preview"
                   className="w-full h-full"
-                  srcDoc={`<html><head><style>${code?.css || ''}</style></head><body>${code?.html || ''}<script>${code?.script || ''}</script></body></html>`}
+                  srcDoc={`<html><head><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" /><style>${code?.css || ''}</style></head><body>${code?.html || ''}<script>${code?.script || ''}</script></body></html>`}
                   sandbox="allow-scripts"
                 />
               </div>

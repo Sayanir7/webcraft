@@ -28,6 +28,7 @@ const ChatInterface = ({ chat, setChat, isExpanded, setCodeVersion }) => {
   const handleSendClick = async () => {
     const response = await handleSend({ prompt, chat, setChat, setCodeVersion, updateChat, generateResponse });
     dispatch(setCode(response));
+    // console.log("code:", response);
     setPrompt("");
   };
   const handleCodeDisplay = (code) => {

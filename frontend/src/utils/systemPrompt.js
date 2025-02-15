@@ -61,7 +61,7 @@ Return a structured JSON response it should be in json format only no \n and sym
   "title": "Descriptive page title",
   "context": "Summarized context for future updates",
   "textOverview": "Brief overview of features and implementation details",
-  "html": "Semantic, well-structured HTML",
+  "html": "Semantic, well-structured HTML with proper html and head tag includes cdn links ",
   "css": "effective responsive CSS with excellent design,  Images should cover the div and fix height and width of img div",
   "script": "Efficient, clean JavaScript"
 }
