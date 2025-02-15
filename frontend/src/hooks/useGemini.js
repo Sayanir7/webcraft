@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { toast} from "sonner";
+import { toast } from "sonner";
 
 const API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
 const API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent";
@@ -18,11 +18,9 @@ const useGemini = () => {
       const checkAuth = await fetch(`${API_URL}/api/chat/checkauth`, {
         credentials: "include",
       });
-      if(!checkAuth.ok) {
+      if (!checkAuth.ok) {
+        throw new Error("atentication filed");
         
-        toast.error("Authentication Failed!!");
-        
-        return;
       }
       const res = await fetch(`${API_URL}?key=${API_KEY}`, {
         method: "POST",
@@ -39,7 +37,7 @@ const useGemini = () => {
     } catch (err) {
       console.error("Gemini API Error:", err);
       setError(err.message);
-      toast.error("Server error!!")
+      toast.error(err.message); 
       // return null;
     } finally {
       setLoading(false);
