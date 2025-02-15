@@ -14,6 +14,16 @@ const useGemini = () => {
     setError(null);
 
     try {
+
+      const checkAuth = await fetch(`${API_URL}/api/chat/checkauth`, {
+        credentials: "include",
+      });
+      if(!checkAuth.ok) {
+        
+        toast.error("Authentication Failed!!");
+        
+        return;
+      }
       const res = await fetch(`${API_URL}?key=${API_KEY}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
