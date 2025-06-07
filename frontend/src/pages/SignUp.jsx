@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Input from "../components/Input";
 import Header from "../components/Header";
@@ -10,7 +10,9 @@ import AuthLayout from "../components/auth/AuthLayout";
 import AuthCard from "../components/auth/AuthCard";
 
 const SignUp = () => {
-  const { loading } = useSelector((state) => state.user);
+  const { currentUser,loading } = useSelector((state) => state.user);
+  if (currentUser) return <Navigate to="/new" />;
+
   const { handleSubmit } = useSignUp();
   const [formData, setFormData] = useState({
     username: "",

@@ -11,10 +11,12 @@ const useGoogleAuth = () => {
 
     const handleGoogleLogin = async (credentialResponse) => {
         const { credential } = credentialResponse;
-        const decoded = jwtDecode(credential); // optional
+        const decoded = jwtDecode(credential); 
+        // console.log(decoded); 
 
         dispatch(signInStart());
 
+        
         try {
             const res = await fetch(`${API_URL}/api/auth/google`, {
                 method: "POST",
