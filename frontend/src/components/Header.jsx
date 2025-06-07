@@ -75,7 +75,7 @@ function Header({ chatTitle }) {
                       className="flex items-center gap-2 p-1 rounded-full ring-2 ring-border hover:ring-accent transition-all duration-200"
                     >
                       <img
-                        src={currentUser.profilePicture || "/userphoto.jpg"}
+                        src={currentUser.profilePic || "/userphoto.jpg"}
                         alt="Profile"
                         referrerPolicy="no-referrer"
                         className="h-8 w-8 rounded-full object-cover"

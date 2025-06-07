@@ -48,7 +48,7 @@ export default function Profile() {
                 <div className="absolute inset-0 rounded-full bg-gradient-to-b from-accent/20 to-accent/10 animate-gradient" />
                 <div className="absolute inset-1 bg-tertiary rounded-full" />
                 <img
-                  src={currentUser.profilePicture || "/userphoto.jpg"}
+                  src={currentUser.profilePic || "/userphoto.jpg"}
                   alt="user"
                   className="relative rounded-full w-full h-full object-cover border-2 border-border group-hover:opacity-90 transition-all duration-300"
                 />

@@ -24,9 +24,9 @@ const ProfileCard = () => {
         <div className="relative w-20 h-20 mx-auto mb-4">
           <div className="w-full h-full rounded-full border-4 border-primary overflow-hidden group relative">
             <img
-              src={currentUser?.profilePicture || "/userphoto.jpg"}
+              src={currentUser?.profilePic || "/userphoto.jpg"}
               alt="Profile"
-              className="w-full h-full object-cover"
+              className="h-full w-full rounded-full object-cover"
               onError={(e) => {
                 e.target.src = "/userphoto.jpg";
                 e.target.onerror = null;
