@@ -3,6 +3,10 @@ import bcryptjs from 'bcryptjs';
 import { errorHandler } from '../utils/error.js';
 import jwt from 'jsonwebtoken';
 import { validateEmail, validatePassword, validateUsername } from "../utils/validateUser.js";
+import { OAuth2Client } from "google-auth-library";
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 export const signup = async (req, res, next) => {
   try {
@@ -75,50 +79,59 @@ export const signin = async (req, res, next) => {
     next(error);
   }
 };
-  
+
+// google
+
+const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
+
 export const google = async (req, res, next) => {
-  const { email, name, googlePhotoUrl } = req.body;
   try {
-    const user = await User.findOne({ email });
-    if (user) {
-      const token = jwt.sign(
-          { id: user._id, isAdmin: user.isAdmin },
-          process.env.JWT_SECRET
-      );
-      const { password, ...rest } = user._doc;
-      res
-        .status(200)
-        .cookie('access_token', token, {
-          httpOnly: true,
-        })
-        .json(rest);
-    } else {
-      const generatedPassword =
-        Math.random().toString(36).slice(-8) +
-        Math.random().toString(36).slice(-8);
-      const hashedPassword = bcryptjs.hashSync(generatedPassword, 10);
-      const newUser = new User({
-        username:
-          name.toLowerCase().split(' ').join('') +
-          Math.random().toString(9).slice(-4),
+    const { token } = req.body;
+
+    if (!token) return next(errorHandler(400, "Google token missing"));
+
+    // Verify Google ID Token
+    const ticket = await client.verifyIdToken({
+      idToken: token,
+      audience: process.env.GOOGLE_CLIENT_ID,
+    });
+
+    const payload = ticket.getPayload();
+    const { email, name, picture } = payload;
+    // console.log(email,name,picture);
+
+    // Check or create user
+    let user = await User.findOne({ email });
+
+    if (!user) {
+      user = new User({
+        username: name.toLowerCase().replace(/\s+/g, "_"),
         email,
-        password: hashedPassword,
-        profilePicture: googlePhotoUrl,
+        password: bcryptjs.hashSync(email + process.env.JWT_SECRET, 10), // dummy password
+        profilePic: picture,
       });
-      await newUser.save();
-      const token = jwt.sign(
-          { id: newUser._id, isAdmin: newUser.isAdmin },
-          process.env.JWT_SECRET
-      );
-      const { password, ...rest } = newUser._doc;
-      res
-        .status(200)
-        .cookie('access_token', token, {
-          httpOnly: true,
-        })
-        .json(rest);
+
+      await user.save();
+      
     }
-  } catch (error) {
-    next(error);
+
+    // Create your own JWT
+    const accessToken = jwt.sign(
+      { id: user._id, isAdmin: user.isAdmin },
+      process.env.JWT_SECRET
+    );
+
+    const { password, ...userData } = user._doc;
+
+    res
+      .cookie("access_token", accessToken, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "Lax",
+      })
+      .status(200)
+      .json(userData);
+  } catch (err) {
+    next(errorHandler(400, err));
   }
 };

@@ -8,10 +8,13 @@ import useSignIn from "../hooks/useSignIn";
 import { ArrowPathIcon } from "@heroicons/react/24/outline";
 import AuthLayout from "../components/auth/AuthLayout";
 import AuthCard from "../components/auth/AuthCard";
+import { GoogleLogin } from "@react-oauth/google";
+import useGoogleAuth from "../hooks/useGoogleAuth"; // rename your hook file if needed
 
 const SignIn = () => {
   const { loading } = useSelector((state) => state.user);
   const { handleSubmit } = useSignIn();
+  const handleGoogleLogin = useGoogleAuth();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -30,16 +33,18 @@ const SignIn = () => {
     <div className="flex flex-col min-h-screen">
       <Header />
       <div className="flex flex-col lg:flex-row flex-1 bg-gradient-to-b from-secondary to-background">
-        <AuthLayout 
+        <AuthLayout
           title="Welcome back!"
           subtitle="Sign in to continue building amazing websites"
         />
-        
+
         <AuthCard>
           <form className="flex flex-col gap-6" onSubmit={onSubmit}>
             <div className="space-y-2">
               <h2 className="text-2xl font-semibold text-primary_text">Sign In</h2>
-              <p className="text-secondary_text">Enter your credentials to access your account</p>
+              <p className="text-secondary_text">
+                Enter your credentials to access your account
+              </p>
             </div>
             
             <Input
@@ -75,10 +80,22 @@ const SignIn = () => {
                 "Sign In"
               )}
             </button>
-            
+
+            {/* 👇 Google Login Button */}
+            <div className="flex justify-center">
+              <GoogleLogin
+                onSuccess={ handleGoogleLogin }
+                onError={() => console.log("Google Sign-In Failed")}
+                width="50%"
+              />
+            </div>
+
             <div className="flex gap-2 text-sm justify-center text-primary_text">
               <span>Don't have an account?</span>
-              <Link to="/sign-up" className="text-accent hover:text-hover_accent transition-colors">
+              <Link
+                to="/sign-up"
+                className="text-accent hover:text-hover_accent transition-colors"
+              >
                 Create account
               </Link>
             </div>
