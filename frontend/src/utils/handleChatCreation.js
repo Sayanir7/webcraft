@@ -1,7 +1,7 @@
 import getSystemPrompt, { extractJsonFromResponse } from "./systemPrompt";
 import { updateHtmlContent } from "./addImage";
 
-export const handleChatCreation = async ({ prompt, file, generateResponse, createChat }) => {
+export const handleChatCreation = async ({ prompt, file, generateResponse, createChat,setLoading }) => {
   if (!prompt.trim() && !file) {
     return;
   }
@@ -22,6 +22,7 @@ export const handleChatCreation = async ({ prompt, file, generateResponse, creat
   const formattedPrompt = getSystemPrompt(finalPrompt);
 
   try {
+    setLoading(true);
     const responseText = await generateResponse(formattedPrompt);
     if (!responseText) return;
 
@@ -47,6 +48,7 @@ export const handleChatCreation = async ({ prompt, file, generateResponse, creat
 
     await createChat(newChat);
   } catch (error) {
+    setLoading(false);
     console.error("Error creating chat:", error);
   }
 };

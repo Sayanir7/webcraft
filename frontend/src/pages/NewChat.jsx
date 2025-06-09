@@ -32,8 +32,8 @@ const NewChat = () => {
   const [userPrompt, setUserPrompt] = useState("");
   const [file, setFile] = useState(null);
   const { currentUser } = useSelector((state) => state.user);
-  const { createChat, loading, setLoading } = useCreateChat();
-  const { generateResponse } = useGemini();
+  const { createChat, } = useCreateChat();
+  const { generateResponse, loading,setLoading } = useGemini();
   const [greeting, setGreeting] = useState("");
 
   useEffect(() => {
@@ -54,6 +54,7 @@ const NewChat = () => {
       file,
       createChat,
       generateResponse,
+      setLoading
     });
 
     setUserPrompt("");
@@ -128,23 +129,24 @@ const NewChat = () => {
             </div>
 
             {/* Input Section */}
-            <div className="bg-tertiary/30 rounded-xl p-6 border border-border backdrop-blur-sm">
+            <div className="">
               <div className="mb-6">
                 {/* <h2 className="text-xl font-semibold mb-2">Describe Your Website</h2> */}
-                <p className="text-secondary_text">
+                {/* <p className="text-secondary_text">
                   Tell us about your website idea, and we'll help you bring it to life.
-                </p>
+                </p> */}
               </div>
 
-              <div className="bg-primary/30 rounded-lg p-4 backdrop-blur-sm">
+              <div className="bg-primary/30 rounded-xl p-2 ">
                 <textarea
+                  // type="text"
                   placeholder="Describe your website idea in detail..."
-                  className="w-full bg-transparent outline-none text-lg resize-none overflow-y-auto custom-scrollbar min-h-[120px] text-primary_text placeholder:text-secondary_text"
+                  className="w-full bg-transparent p-2  outline-none text-lg resize-none overflow-y-auto custom-scrollbar border-none outline-none focus:outline-none focus:ring-0 text-primary_text placeholder:text-secondary_text"
                   value={userPrompt}
                   onChange={(e) => setUserPrompt(e.target.value)}
                 />
 
-                <div className="flex justify-between items-center mt-4 pt-4 border-t border-border">
+                <div className="flex justify-between items-center">
                   <label className="flex items-center gap-2 cursor-pointer hover:text-accent transition-colors text-secondary_text">
                     <DocumentTextIcon className="w-5 h-5" />
                     <span className="text-sm">
@@ -156,7 +158,7 @@ const NewChat = () => {
                   <button
                     onClick={handleSendMessage}
                     disabled={loading}
-                    className="flex items-center gap-2 px-6 py-2.5 bg-accent hover:bg-hover_accent text-white rounded-lg transition-colors disabled:bg-accent/50 disabled:cursor-not-allowed"
+                    className="flex items-center gap-2 px-6 py-2.5 bg-accent-500 hover:bg-hover_accent text-white rounded-lg transition-colors disabled:bg-accent/50 disabled:cursor-not-allowed"
                   >
                     {loading ? (
                       <>
@@ -166,7 +168,7 @@ const NewChat = () => {
                     ) : (
                       <>
                         <SparklesIcon className="w-5 h-5" />
-                        <span>Generate Website</span>
+                        {/* <span>Generate Website</span> */}
                       </>
                     )}
                   </button>

@@ -63,13 +63,7 @@ function Header({ chatTitle }) {
               <div className="flex items-center gap-4">
                 {currentUser ? (
                   <div className="relative flex items-center gap-2">
-                    <button
-                      onClick={handleSignout}
-                      className="p-2 text-secondary_text hover:text-accent transition-colors duration-200"
-                      aria-label="Sign Out"
-                    >
-                      <ArrowRightEndOnRectangleIcon className="h-5 w-5" />
-                    </button>
+                    
                     <button
                       onClick={toggleProfileCard}
                       className="flex items-center gap-2 p-1 rounded-full ring-2 ring-border hover:ring-accent transition-all duration-200"
@@ -94,6 +88,13 @@ function Header({ chatTitle }) {
                         <ProfileCard />
                       </div>
                     </Transition>
+                    <button
+                      onClick={handleSignout}
+                      className="p-2 text-secondary_text hover:text-accent transition-colors duration-200"
+                      aria-label="Sign Out"
+                    >
+                      <ArrowRightEndOnRectangleIcon className="h-5 w-5" />
+                    </button>
                   </div>
                 ) : (
                   <Link to="/sign-in">

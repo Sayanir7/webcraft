@@ -9,8 +9,10 @@ import Chat from "./pages/Chat";
 import NewChat from "./pages/NewChat";
 import LandingPage from "./pages/LandingPage";
 import EditWebsite from "./pages/EditWebsite";
+import useAuthSync from "./hooks/useAuth";
 
 function App() {
+  useAuthSync();
 
   return (
     <BrowserRouter>

@@ -1,6 +1,10 @@
 import Chat from '../models/chat.model.js';
 import { errorHandler } from '../utils/error.js';
 
+export const checkAuth = (req,res)=>{
+  res.status(200).json({statu:"ok"});
+}
+
 // Get all chat titles for a user
 export const getAllChats = async (req, res, next) => {
   try {

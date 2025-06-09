@@ -1,5 +1,6 @@
 import express from 'express';
 import { 
+  checkAuth,
   getAllChats, 
   getChatById, 
   createChat, 
@@ -7,12 +8,13 @@ import {
   deleteChat, 
   deleteAllChats,
   getCodeByVersion,
-  updateCodeByVersion
+  updateCodeByVersion,
 } from '../controllers/chat.controller.js';
 import { verifyToken } from '../utils/verifyUser.js';
 
 const router = express.Router();
 
+router.get('/checkauth',verifyToken, checkAuth);
 router.get('/', verifyToken, getAllChats);
 router.get('/:chatId', verifyToken, getChatById);
 router.post('/', verifyToken, createChat);
