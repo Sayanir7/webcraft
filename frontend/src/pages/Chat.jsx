@@ -51,7 +51,7 @@ const Chat = () => {
             <div
               onClick={toggleCodeExpand}
               className={`absolute top-1/2 -translate-y-1/2 cursor-pointer transition-all duration-500 ${
-                isCodeExpanded ? "left-4" : "left-[40%]"
+                isCodeExpanded ? "left-4" : "left-[20%]"
               }`}
             >
               {isCodeExpanded ? (

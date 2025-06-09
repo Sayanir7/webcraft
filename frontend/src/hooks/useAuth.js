@@ -17,7 +17,7 @@ const useAuthSync = () => {
 
         // const data = await res.json();
         console.log(res.status);
-        if (res.status!=200) {
+        if (res.status==401) {
             // navigate('/sign-in');
             dispatch(signoutSuccess());
             localStorage.removeItem('user');

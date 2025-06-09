@@ -54,10 +54,10 @@ const CodeDisplay = ({ chatId, codeVersion, isExpanded }) => {
   return (
     <div
       className={`transition-all duration-500 bg-gradient-to-b from-secondary to-background flex min-h-0 ${
-        isExpanded ? "w-full" : "w-3/5"
+        isExpanded ? "w-full" : "w-4/5"
       }`}
     >
-      {isExpanded ? (
+      {/* {isExpanded ? (
         <div className="w-full flex min-h-0">
           <div className="w-1/2 flex flex-col min-h-0 border-r border-border">
             <div className="flex items-center space-x-2 bg-tertiary p-2 rounded-lg m-4 flex-shrink-0">
@@ -101,7 +101,7 @@ const CodeDisplay = ({ chatId, codeVersion, isExpanded }) => {
             />
           </div>
         </div>
-      ) : (
+      ) : ( */}
         <div className="w-full flex flex-col min-h-0">
           <div className="flex items-center space-x-2 bg-tertiary p-2 rounded-lg m-4 flex-shrink-0">
             <div className="flex space-x-2 flex-1">
@@ -163,7 +163,7 @@ const CodeDisplay = ({ chatId, codeVersion, isExpanded }) => {
             )}
           </div>
         </div>
-      )}
+      {/* )} */}
     </div>
   );
 };
