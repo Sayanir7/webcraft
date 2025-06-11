@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
 import ChatInterface from "../components/ChatInterface";
@@ -12,11 +12,16 @@ import { useDispatch } from "react-redux";
 
 const Chat = () => {
   const { chatId } = useParams();
-  const [codeVersion, setCodeVersion] = useState(null);
+  const [codeVersion, setCodeVersion] = useState(0);
   const [isCodeExpanded, setIsCodeExpanded] = useState(false);
 
   const dispatch = useDispatch();
   const { chat, setChat, loading } = useFetchChatById(chatId, dispatch, setCode);
+  useEffect(()=>{
+    const version = chat?.promptsAndResponses?.length - 1;
+    setCodeVersion(version);
+
+  },[chat]);
 
   const toggleCodeExpand = () => {
     setIsCodeExpanded(!isCodeExpanded);
@@ -24,7 +29,7 @@ const Chat = () => {
 
   return (
     <div className="flex flex-col h-screen overflow-hidden">
-      <Header chatTitle={chat?.title} />
+      {/* <Header chatTitle={chat?.title} /> */}
 
       <div className="flex flex-1 bg-primary text-primary_text min-h-0">
         <Sidebar />
@@ -38,6 +43,7 @@ const Chat = () => {
               isExpanded={isCodeExpanded}
               setChat={setChat}
               setCodeVersion={setCodeVersion}
+              codeVersion= {codeVersion}
             />
           ) : (
             <div className="flex justify-center items-center flex-1 text-xl font-semibold text-red-500">
@@ -60,7 +66,7 @@ const Chat = () => {
                 <ChevronLeftIcon className="w-6 h-6 text-primary_text hover:text-hover_accent" />
               )}
             </div>
-            <CodeDisplay chatId={chatId} codeVersion={codeVersion} isExpanded={isCodeExpanded} />
+            <CodeDisplay chatId={chatId} chatTitle={chat?.title} codeVersion={codeVersion} isExpanded={isCodeExpanded} />
           </>
         )}
       </div>

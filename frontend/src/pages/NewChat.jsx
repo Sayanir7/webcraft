@@ -144,6 +144,7 @@ const NewChat = () => {
                   className="w-full bg-transparent p-2  outline-none text-lg resize-none overflow-y-auto custom-scrollbar border-none outline-none focus:outline-none focus:ring-0 text-primary_text placeholder:text-secondary_text"
                   value={userPrompt}
                   onChange={(e) => setUserPrompt(e.target.value)}
+                  disabled={loading}
                 />
 
                 <div className="flex justify-between items-center">

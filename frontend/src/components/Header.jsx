@@ -39,13 +39,18 @@ function Header({ chatTitle }) {
                 </div>
                 <div className="hidden lg:ml-8 lg:flex lg:items-center lg:space-x-4">
                   {navigation.map((item) => (
-                    <a
+                    
+                    <div
                       key={item.name}
                       href={item.href}
-                      className="px-3 py-2 text-sm font-medium text-secondary_text hover:text-primary_text hover:bg-tertiary/50 rounded-md transition-colors duration-200"
+                      className=" text-sm font-medium text-secondary_text hover:text-primary_text hover:bg-tertiary/50 rounded-md transition-colors duration-200"
                     >
-                      {item.name}
-                    </a>
+                      <Link to={item.href}>
+                      <h4 className="px-3 py-2">{item.name}</h4>
+                      
+                      </Link>
+                    </div>
+                    
                   ))}
                 </div>
               </div>

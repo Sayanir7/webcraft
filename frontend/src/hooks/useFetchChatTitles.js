@@ -16,7 +16,9 @@ const useFetchChatTitles = () => {
         if (!res.ok) throw new Error(data.message);
         setChats(data);
       })
-      .catch((err) => setError(err.message))
+      .catch((err) => {
+        setLoading(false);
+        setError(err.message)})
       .finally(() => setLoading(false));
   }, []);
 

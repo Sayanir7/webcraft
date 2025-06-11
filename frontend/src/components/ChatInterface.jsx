@@ -9,7 +9,7 @@ import { setCode } from "../redux/codeDisplaySlice";
 import { useSelector, useDispatch } from "react-redux";
 
 
-const ChatInterface = ({ chat, setChat, isExpanded, setCodeVersion }) => {
+const ChatInterface = ({ chat, setChat, isExpanded, setCodeVersion, codeVersion }) => {
   const [prompt, setPrompt] = useState("");
   const messagesEndRef = useRef(null);
   const { generateResponse, loading } = useGemini();
@@ -23,6 +23,7 @@ const ChatInterface = ({ chat, setChat, isExpanded, setCodeVersion }) => {
 
   useEffect(() => {
     scrollToBottom();
+    dispatch(setCode(chat?.promptsAndResponses[codeVersion]));
   }, [chat?.promptsAndResponses]);
 
   const handleSendClick = async () => {
@@ -31,8 +32,9 @@ const ChatInterface = ({ chat, setChat, isExpanded, setCodeVersion }) => {
     // console.log("code:", response);
     setPrompt("");
   };
-  const handleCodeDisplay = (code) => {
+  const handleCodeDisplay = (code,index) => {
     // console.log(code);
+    setCodeVersion(index);
     dispatch(setCode(code));
   };
 
@@ -54,7 +56,7 @@ const ChatInterface = ({ chat, setChat, isExpanded, setCodeVersion }) => {
             <div className="p-4 rounded-lg bg-gray-800 bg-opacity-50 text-gray-200 shadow-lg relative">
               {entry.response.textOverview}
               <button
-                onClick={() => handleCodeDisplay(entry)}
+                onClick={() => handleCodeDisplay(entry,index)}
                 className="absolute  bottom-2 right-2  px-1.5 py-0.5  bg-gray-600 bg-opacity-50 text-gray-300 rounded-lg text-sm shadow-lg hover:shadow-xl transition-all transform hover:scale-105"
               >
                 <CodeBracketIcon className="w-5 h-5 " />

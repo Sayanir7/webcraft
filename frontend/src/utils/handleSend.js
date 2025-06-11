@@ -1,5 +1,5 @@
 import getSystemPrompt, { extractJsonFromResponse } from "./systemPrompt";
-import { updateHtmlContent } from "./addImage";
+// import { updateHtmlContent } from "./addImage";
 import { toast } from "sonner";
 
 export const handleSend = async ({ 
@@ -39,7 +39,7 @@ export const handleSend = async ({
         ...(prevChat?.promptsAndResponses || []),
         {
           prompt,
-          response: { textOverview: "Generating response..." }
+          response: { textOverview: "..." }
         }
       ]
     }));
