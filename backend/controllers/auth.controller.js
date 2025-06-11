@@ -38,8 +38,8 @@ export const signup = async (req, res, next) => {
       .status(201)
       .cookie("access_token", accessToken, {
         httpOnly: true,
-        secure: process.env.NODE_ENV === "pd",
-        sameSite: "Lax",
+        secure: process.env.NODE_ENV === "production",
+        sameSite:process.env.NODE_ENV === "production"?"None":"Lax",
         maxAge: 7 * 24 * 60 * 60 * 1000
       })
       .json(userDetails);
@@ -76,8 +76,8 @@ export const signin = async (req, res, next) => {
       .status(200)
       .cookie("access_token", accessToken, {
         httpOnly: true,
-        secure: process.env.NODE_ENV === "pd",
-        sameSite: "Lax",
+       secure: process.env.NODE_ENV === "production",
+        sameSite:process.env.NODE_ENV === "production"?"None":"Lax",
         maxAge: 7 * 24 * 60 * 60 * 1000
       })
       .json(rest);
@@ -132,8 +132,8 @@ export const google = async (req, res, next) => {
     res
       .cookie("access_token", accessToken, {
         httpOnly: true,
-        secure: process.env.NODE_ENV === "pd",
-        sameSite: "Lax",
+        secure: process.env.NODE_ENV === "production",
+        sameSite:process.env.NODE_ENV === "production"?"None":"Lax",
         maxAge: 7 * 24 * 60 * 60 * 1000
       })
       .status(200)
