@@ -30,6 +30,7 @@ const SuggestedPrompt = ({ icon: Icon, title, description, onClick }) => (
 );
 
 const NewChat = () => {
+  useAuthSync();
   const [userPrompt, setUserPrompt] = useState("");
   const [file, setFile] = useState(null);
   const { currentUser } = useSelector((state) => state.user);
@@ -38,7 +39,7 @@ const NewChat = () => {
   const [greeting, setGreeting] = useState("");
 
   useEffect(() => {
-    useAuthSync();
+    
     const hour = new Date().getHours();
     setGreeting(hour < 12 ? "Good Morning" : hour < 18 ? "Good Afternoon" : "Good Evening");
   }, []);
