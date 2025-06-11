@@ -14,6 +14,7 @@ import { handleChatCreation } from "../utils/handleChatCreation";
 import useCreateChat from "../hooks/useCreateChat";
 // import useAnthropic from "../hooks/useAnthropic";
 import useGemini from "../hooks/useGemini";
+import useAuthSync from "../hooks/useAuth";
 
 const SuggestedPrompt = ({ icon: Icon, title, description, onClick }) => (
   <button
@@ -37,6 +38,7 @@ const NewChat = () => {
   const [greeting, setGreeting] = useState("");
 
   useEffect(() => {
+    useAuthSync();
     const hour = new Date().getHours();
     setGreeting(hour < 12 ? "Good Morning" : hour < 18 ? "Good Afternoon" : "Good Evening");
   }, []);

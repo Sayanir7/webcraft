@@ -104,7 +104,7 @@ export const google = async (req, res, next) => {
 
     const payload = ticket.getPayload();
     const { email, name, picture } = payload;
-    // console.log(email,name,picture);
+    console.log(email,name,picture);
 
     // Check or create user
     let user = await User.findOne({ email });
