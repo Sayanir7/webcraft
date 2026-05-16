@@ -148,7 +148,7 @@ export const google = async (req, res, next) => {
     }
 
     // Create your own JWT
-    const accessToken = jwt.sign(
+    const authToken = jwt.sign(
       { id: user._id, isAdmin: user.isAdmin },
       process.env.JWT_SECRET
     );
@@ -156,7 +156,7 @@ export const google = async (req, res, next) => {
     const { password, ...userData } = user._doc;
 
     res
-      .cookie("access_token", accessToken, {
+      .cookie("access_token", authToken, {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
         sameSite:process.env.NODE_ENV === "production"?"None":"Lax",

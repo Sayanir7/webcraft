@@ -50,7 +50,7 @@ const useGoogleAuth = () => {
         } catch (err) {
             console.error(err);
             dispatch(signInFailure(err.message));
-            toast.error("Something went wrong during Google sign-in.");
+            toast.error(err.message || "Something went wrong during Google sign-in.");
         }
     };
 
