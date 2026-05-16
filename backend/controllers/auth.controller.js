@@ -45,6 +45,11 @@ export const signup = async (req, res, next) => {
       .json(userDetails);
 
   } catch (error) {
+    if (error.code === 11000) {
+      const field = Object.keys(error.keyPattern || error.keyValue || {})[0];
+      return next(errorHandler(400, field === "email" ? "Email is already in use" : "Username is already taken"));
+    }
+
     next(error);
   }
 };
@@ -160,6 +165,10 @@ export const google = async (req, res, next) => {
       .status(200)
       .json(userData);
   } catch (err) {
+    if (err.code === 11000) {
+      return next(errorHandler(400, "A user with this Google account already exists. Please try signing in again."));
+    }
+
     next(errorHandler(400, err.message || "Google authentication failed"));
   }
 };
