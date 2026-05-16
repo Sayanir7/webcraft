@@ -6,6 +6,7 @@ import cookieParser from 'cookie-parser';
 import userRoutes from './routes/user.route.js';
 import authRoutes from './routes/auth.route.js';
 import chatRoutes from './routes/chat.route.js';
+import { verifyToken } from './utils/verifyUser.js';
 
 dotenv.config();
 
@@ -32,13 +33,20 @@ app.get('/health', (req, res) => {
   res.status(200).json({ status: 'ok' });
 });
 
-app.post('/api/chat/anthropic', async (req, res) => {
-  const API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent";
+app.post('/api/chat/gemini', verifyToken, async (req, res) => {
+  const API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent";
   const API_KEY = process.env.GEMINI_API_KEY;
 
   try {
     const { prompt } = req.body;
-    console.log("Request received.");
+
+    if (!prompt) {
+      return res.status(400).json({ message: "Prompt is required." });
+    }
+
+    if (!API_KEY) {
+      return res.status(500).json({ message: "Gemini API key is not configured on the server." });
+    }
 
     const response = await fetch(`${API_URL}?key=${API_KEY}`, {
       method: "POST",
@@ -46,14 +54,16 @@ app.post('/api/chat/anthropic', async (req, res) => {
       body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] } ),
     });
 
-    if (response.status === 429) {
-      console.log("limit")
-      return res.status(429).json({ message: "Rate limit exceeded. Try again later." });
+    const data = await response.json();
+
+    if (!response.ok) {
+      const message =
+        data?.error?.message ||
+        (response.status === 429 ? "Rate limit exceeded. Try again later." : "Failed to fetch response from Gemini.");
+
+      return res.status(response.status).json({ message });
     }
 
-    const data = await response.json();  // Read body only once
-
-    console.log(response);  // Log response details
     res.json({ message: data?.candidates?.[0]?.content?.parts?.[0]?.text || "No response from AI." });
   } catch (error) {
     console.error("Error:", error);

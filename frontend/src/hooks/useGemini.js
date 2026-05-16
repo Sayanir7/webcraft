@@ -1,9 +1,6 @@
 import { useState } from "react";
 import { toast } from "sonner";
 import API_URL from "../endpoint";
-
-const API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
-const GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent";
   
 
 const useGemini = () => {
@@ -15,24 +12,20 @@ const useGemini = () => {
     setError(null);
 
     try {
-
-      const checkAuth = await fetch(`${API_URL}/api/chat/checkauth`, {
-        credentials: "include",
-      });
-      if (checkAuth.status!=200) {
-        throw new Error("atentication filed");
-        
-      }
-      const res = await fetch(`${GEMINI_API_URL}?key=${API_KEY}`, {
+      const res = await fetch(`${API_URL}/api/chat/gemini`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] }),
+        credentials: "include",
+        body: JSON.stringify({ prompt }),
       });
 
-      if (!res.ok) throw new Error("Failed to fetch response from Gemini");
-
       const data = await res.json();
-      const textResponse = data?.candidates?.[0]?.content?.parts?.[0]?.text || "No response received";
+
+      if (!res.ok) {
+        throw new Error(data.message || "Failed to fetch response from Gemini");
+      }
+
+      const textResponse = data?.message || "No response received";
 
       return textResponse;
     } catch (err) {
