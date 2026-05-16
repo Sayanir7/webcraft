@@ -36,7 +36,7 @@ export const signup = async (req, res, next) => {
     // Send token in cookie and user details in response
     res
       .status(201)
-      .cookie("access_token", accessToken, {
+      .cookie("access_token", token, {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
         sameSite:process.env.NODE_ENV === "production"?"None":"Lax",
@@ -74,7 +74,7 @@ export const signin = async (req, res, next) => {
 
     res
       .status(200)
-      .cookie("access_token", accessToken, {
+      .cookie("access_token", token, {
         httpOnly: true,
        secure: process.env.NODE_ENV === "production",
         sameSite:process.env.NODE_ENV === "production"?"None":"Lax",
@@ -89,6 +89,25 @@ export const signin = async (req, res, next) => {
 // google
 
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
+
+const createGoogleUsername = async (name, email) => {
+  const emailPrefix = email.split("@")[0];
+  const base = (name || emailPrefix)
+    .toLowerCase()
+    .replace(/[^a-z0-9]/g, "")
+    .slice(0, 16) || "user";
+
+  let username = base;
+  let suffix = 1;
+
+  while (await User.findOne({ username })) {
+    const suffixText = String(suffix);
+    username = `${base.slice(0, 20 - suffixText.length)}${suffixText}`;
+    suffix += 1;
+  }
+
+  return username;
+};
 
 export const google = async (req, res, next) => {
   try {
@@ -106,12 +125,14 @@ export const google = async (req, res, next) => {
     const { email, name, picture } = payload;
     // console.log(email,name,picture);
 
+    if (!email) return next(errorHandler(400, "Google account email missing"));
+
     // Check or create user
     let user = await User.findOne({ email });
 
     if (!user) {
       user = new User({
-        username: name.toLowerCase().replace(/\s+/g, "_"),
+        username: await createGoogleUsername(name, email),
         email,
         password: bcryptjs.hashSync(email + process.env.JWT_SECRET, 10), // dummy password
         profilePic: picture,
@@ -139,6 +160,6 @@ export const google = async (req, res, next) => {
       .status(200)
       .json(userData);
   } catch (err) {
-    next(errorHandler(400, err));
+    next(errorHandler(400, err.message || "Google authentication failed"));
   }
 };

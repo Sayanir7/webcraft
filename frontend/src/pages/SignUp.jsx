@@ -8,17 +8,20 @@ import useSignUp from "../hooks/useSignUp";
 import { ArrowPathIcon } from "@heroicons/react/24/outline";
 import AuthLayout from "../components/auth/AuthLayout";
 import AuthCard from "../components/auth/AuthCard";
+import { GoogleLogin } from "@react-oauth/google";
+import useGoogleAuth from "../hooks/useGoogleAuth";
 
 const SignUp = () => {
   const { currentUser,loading } = useSelector((state) => state.user);
-  if (currentUser) return <Navigate to="/new" />;
-
   const { handleSubmit } = useSignUp();
+  const handleGoogleLogin = useGoogleAuth();
   const [formData, setFormData] = useState({
     username: "",
     email: "",
     password: "",
   });
+
+  if (currentUser) return <Navigate to="/new" />;
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value.trim() });
@@ -87,6 +90,14 @@ const SignUp = () => {
                 "Create Account"
               )}
             </button>
+
+            <div className="flex justify-center">
+              <GoogleLogin
+                onSuccess={handleGoogleLogin}
+                onError={() => console.log("Google Sign-Up Failed")}
+                width="50%"
+              />
+            </div>
             
             <div className="flex gap-2 text-sm justify-center text-primary_text">
               <span>Already have an account?</span>

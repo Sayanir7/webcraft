@@ -1,4 +1,3 @@
-import { jwtDecode } from 'jwt-decode';
 import API_URL from '../endpoint';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
@@ -11,8 +10,6 @@ const useGoogleAuth = () => {
 
     const handleGoogleLogin = async (credentialResponse) => {
         const { credential } = credentialResponse;
-        const decoded = jwtDecode(credential); 
-        // console.log(decoded); 
 
         dispatch(signInStart());
 

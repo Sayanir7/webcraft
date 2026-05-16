@@ -13,14 +13,14 @@ import useGoogleAuth from "../hooks/useGoogleAuth"; // rename your hook file if 
 
 const SignIn = () => {
   const { currentUser,loading } = useSelector((state) => state.user);
-  if (currentUser) return <Navigate to="/new" />;
-
   const { handleSubmit } = useSignIn();
   const handleGoogleLogin = useGoogleAuth();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
+
+  if (currentUser) return <Navigate to="/new" />;
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
@@ -93,7 +93,7 @@ const SignIn = () => {
             </div>
 
             <div className="flex gap-2 text-sm justify-center text-primary_text">
-              <span>Don't have an account?</span>
+              <span>Don&apos;t have an account?</span>
               <Link
                 to="/sign-up"
                 className="text-accent hover:text-hover_accent transition-colors"
